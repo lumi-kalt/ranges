@@ -1,5 +1,6 @@
 #include <iostream>
 #include <ranges>
+#include <numeric>
 
 #include "lk/ranges.hpp"
 #include <fmt/ranges.h>
@@ -9,8 +10,8 @@ using namespace std::views;
 
 auto main()
 -> int {
-	auto v = views::iota(5)
-		   | views::take(10);
+	auto v = views::iota(5, 10);
 
-	fmt::print("{}", lk::fold_left(v, 1, std::plus<int>{}));
+	return std::accumulate(v.begin(), v.end(), 0);
+	//return lk::fold_right(v, 1, [](int a, int b) { return a + b; });
 }
