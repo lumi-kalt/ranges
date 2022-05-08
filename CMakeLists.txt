@@ -7,9 +7,10 @@ add_compile_options(-Wall -Wextra -pedantic -O3)
 
 project(ranges VERSION 0.1.0)
 
+include_directories(include)
+
 add_executable(ranges main.cpp)
 
-target_include_directories(
-	ranges
-	PUBLIC include/
-)
+#target_include_directories(
+#	ranges
+#)
