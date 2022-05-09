@@ -11,7 +11,11 @@ using namespace std::views;
 
 auto main()
 -> int {
-	auto v = views::iota(1, 5);
+	auto v = views::iota(1, 1000)
+		   | views::filter([](auto&& i) {
+			    auto v = lk::sum(lk::iota_odds | views::take(i));
+				return v == i * i;
+			 });
 
-	fmt::print("sum {} = {}\n", v, lk::sum(v));
+	fmt::print("{}\n", fmt::format("{}", v) == fmt::format("{}", views::iota(1, 1000)));
 }
