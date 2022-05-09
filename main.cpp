@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ranges>
 #include <numeric>
+#include <functional>
 
 #include "lk/ranges.hpp"
 #include <fmt/ranges.h>
@@ -10,7 +11,7 @@ using namespace std::views;
 
 auto main()
 -> int {
-	auto v = views::iota(1, 10);
+	auto v = views::iota(1, 5);
 
-	fmt::print("{}", lk::fold_right_first(v, std::plus<int>{}));
+	fmt::print("sum {} = {}\n", v, lk::sum(v));
 }

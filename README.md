@@ -5,4 +5,11 @@ Currently requires GCC, as Clang's support for views is lacking.
 May also work in MSVC.
 
 So far, I have implemented:
+
 - fold
+  - fold_left\[_first\]
+  - fold_right\[_last\]
+  - product
+  - sum
+
+@ Lumi Kalt, 2022
