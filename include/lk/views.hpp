@@ -5,8 +5,9 @@
 
 namespace lk {
 
-namespace internal {
-	class evens_iter {
+namespace detail {
+	class evens_iter
+	{
 		std::size_t n = 2;
 
 	public:
@@ -36,7 +37,8 @@ namespace internal {
 		bool operator==(const evens_iter&) const = default;
 	};
 
-	class odds_iter {
+	class odds_iter
+	{
 		std::size_t n = 1;
 
 	public:
@@ -65,9 +67,8 @@ namespace internal {
 
 		bool operator==(const odds_iter&) const = default;
 	};
-}
+} // detail
 
-using namespace internal;
 
 /* UTILS */
 
@@ -78,10 +79,10 @@ using namespace internal;
 /* HELPER VIEWS */
 
 inline constexpr
-auto iota_evens = std::ranges::subrange<evens_iter, std::unreachable_sentinel_t>{};
+auto iota_evens = std::ranges::subrange<detail::evens_iter, std::unreachable_sentinel_t>{};
 
 inline constexpr
-auto iota_odds = std::ranges::subrange<odds_iter, std::unreachable_sentinel_t>{};
+auto iota_odds  = std::ranges::subrange<detail::odds_iter,  std::unreachable_sentinel_t>{};
 
 /* HELPER VIEWS */
 }
