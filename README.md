@@ -12,4 +12,8 @@ So far, I have implemented:
   - product
   - sum
 
+- view helpers
+  - odd_iota
+  - even_iota
+
 @ Lumi Kalt, 2022
