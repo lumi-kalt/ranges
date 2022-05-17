@@ -11,8 +11,8 @@ using namespace std::views;
 
 auto main()
 -> int {
-	auto v = views::iota(1, 1000)
-		   | views::transform([](int&&) { return 1; });
+	int v = views::iota(1, 999)
+		   | lk::fold(1, std::plus{});
 
-	fmt::print("{}", lk::fold_left(v, true, std::equal_to{}));
+	fmt::print("{}", v);
 }
