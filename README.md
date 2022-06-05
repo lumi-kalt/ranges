@@ -19,5 +19,6 @@ So far, I have implemented:
   - odd_iota                    Generates a range of only odd numbers  [1, +∞)
   - even_iota                   Generates a range of only even numbers [2, +∞)
 
-
+\
+\
 @ Lumi Kalt, 2022
