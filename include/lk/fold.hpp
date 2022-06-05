@@ -63,7 +63,7 @@ template<std::ranges::input_range R,
          typename F,
          typename Ret = std::ranges::range_value_t<R>>
 [[nodiscard]] constexpr
-auto fold_right_first(R&& rng, F f)
+auto fold_right_last(R&& rng, F f)
 -> Ret {
     return fold(std::next(std::ranges::rbegin(rng)),
                 std::ranges::rend(rng),
@@ -118,6 +118,30 @@ decltype(auto) operator|(R&& r, fold_t<I, F> _fold) {
                 _fold.init,
                 _fold.f);
 }
+
+// Get max element from range
+template<std::ranges::input_range R,
+         typename Ret = std::ranges::range_value_t<R>>
+[[nodiscard]] constexpr
+auto max(R&& rng)
+-> Ret {
+    return fold_left_first(rng,
+                           [] (auto&& a, auto&& b) {
+                               return std::max(std::move(a), std::move(b));
+                           });
+}
+
+template<std::ranges::input_range R,
+         typename Ret = std::ranges::range_value_t<R>>
+[[nodiscard]] constexpr
+auto min(R&& rng)
+-> Ret {
+    return fold_left_first(rng,
+                           [] (auto&& a, auto&& b) {
+                               return std::min(std::move(a), std::move(b));
+                           });
+}
+
 
 /* FOLDS */
 }

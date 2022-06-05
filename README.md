@@ -11,10 +11,13 @@ So far, I have implemented:
   - fold_right                  Folds from the last element to the first.
   - product                     Multiply all items in the range (requires operator\*).
   - sum                         Sum up all items in the range (requires operator+).
+  - max                         Returns the max item in the range - you can use your own *max* function.
+  - min                         Returns the min item in the range - you can use your own *min* function.
   - operator|                   Consume a range, returning the accumulator.
 
 - view helpers
   - odd_iota                    Generates a range of only odd numbers  [1, +∞)
   - even_iota                   Generates a range of only even numbers [2, +∞)
+
 
 @ Lumi Kalt, 2022
