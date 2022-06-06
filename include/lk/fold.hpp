@@ -119,7 +119,6 @@ decltype(auto) operator|(R&& r, fold_t<I, F> _fold) {
                 _fold.f);
 }
 
-// Get max element from range
 template<std::ranges::input_range R,
          typename Ret = std::ranges::range_value_t<R>>
 [[nodiscard]] constexpr
@@ -142,6 +141,23 @@ auto min(R&& rng)
                            });
 }
 
+template<std::ranges::random_access_range R1,
+         std::ranges::random_access_range R2,
+         typename F,
+         typename Proj = std::identity>
+    requires std::invocable<F, std::ranges::range_value_t<R1>, std::ranges::range_value_t<R2>>
+          && std::invocable<Proj, std::ranges::range_value_t<R1>>
+          && std::invocable<Proj, std::ranges::range_value_t<R2>>
+[[nodiscard]] constexpr
+auto zip_with(const R1& r1, const R2& r2, F f, Proj proj = Proj{})
+-> decltype(auto) {
+    std::size_t size = std::min<std::size_t>(r1.size(), r2.size());
+
+    return std::views::iota((std::size_t)0, size)
+         | std::views::transform([&] (auto&& i) {
+             return std::invoke(f, std::invoke(proj, r1[i]), std::invoke(proj, r2[i]));
+         });
+}
 
 /* FOLDS */
 }
