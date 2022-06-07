@@ -6,12 +6,15 @@ May also work in MSVC.
 
 To compile, run
 
-```shell
+```bash
 mkdir build
 cd build
 cmake -D CMAKE_CXX_COMPILER=g++ .. && make -j
 ./ranges
 ```
+
+\
+\
 
 So far, I have implemented:
 

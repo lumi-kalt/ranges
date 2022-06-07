@@ -3,7 +3,7 @@
 #include <numeric>
 #include <functional>
 
-#include "lk/ranges.hpp"
+#include "lk/lk.hpp"
 #include <fmt/ranges.h>
 
 using namespace std::ranges;
@@ -11,9 +11,11 @@ using namespace std::views;
 
 auto main()
 -> int {
-	auto v = views::iota(1, 1000);
-	auto w = views::iota(5, 10);
+	constexpr auto v = views::iota(1, 1000);
+	constexpr auto w = views::iota(5, 10);
 
-	fmt::print("{}",
-			   lk::zip_with(v, w, [](int a, int b) { return a + b; }));
+	fmt::print("{}\n{}\n{}\n",
+			   lk::adjacent<1>(w),
+			   lk::adjacent<2>(w),
+			   lk::adjacent<3>(w));
 }
