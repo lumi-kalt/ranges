@@ -4,6 +4,15 @@ Toy implementations of some C++23 algorithms for ranges.
 Currently requires GCC, as Clang's support for views is lacking.
 May also work in MSVC.
 
+To compile, run
+
+```shell
+mkdir build
+cd build
+cmake -D CMAKE_CXX_COMPILER=g++ .. && make -j
+./ranges
+```
+
 So far, I have implemented:
 
 - fold                - Applies *f* with an accumulator and the current element, for each element in the range.
