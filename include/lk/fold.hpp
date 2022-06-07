@@ -143,20 +143,24 @@ auto min(R&& rng)
 
 template<std::ranges::random_access_range R1,
          std::ranges::random_access_range R2,
-         typename F,
-         typename Proj = std::identity>
+         typename F>
     requires std::invocable<F, std::ranges::range_value_t<R1>, std::ranges::range_value_t<R2>>
-          && std::invocable<Proj, std::ranges::range_value_t<R1>>
-          && std::invocable<Proj, std::ranges::range_value_t<R2>>
+          && std::ranges::sized_range<R1>
+          && std::ranges::sized_range<R2>
 [[nodiscard]] constexpr
-auto zip_with(const R1& r1, const R2& r2, F f, Proj proj = Proj{})
+auto zip_with(R1&& r1, R2&& r2, F f)
 -> decltype(auto) {
-    std::size_t size = std::min<std::size_t>(r1.size(), r2.size());
+    std::size_t size =
+        std::min<std::size_t>(std::ranges::size(r1),
+                              std::ranges::size(r2));
 
-    return std::views::iota((std::size_t)0, size)
-         | std::views::transform([&] (auto&& i) {
-             return std::invoke(f, std::invoke(proj, r1[i]), std::invoke(proj, r2[i]));
-         });
+    auto r = std::views::iota((std::size_t)0, size)
+           | std::views::transform([&] (std::size_t i) {
+               return std::invoke(f, r1[i], r2[i]);
+           })
+           | std::views::all;
+
+    return r;
 }
 
 /* FOLDS */

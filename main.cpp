@@ -14,5 +14,5 @@ auto main()
 	auto v = views::iota(1, 1000);
 	auto w = views::iota(5, 10);
 
-	fmt::print("{}", lk::zip_with(v, w, [](int a, int b) { return a + b; }, [](int i) { return i * i; }));
+	fmt::print("{}", lk::zip_with(v, w, [](int a, int b) { return a + b; }));
 }
