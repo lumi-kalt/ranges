@@ -91,33 +91,33 @@ auto sum(R&& rng)
 
 
 
-// template<typename I, typename F>
-// class fold_t {
-// public:
-//     I&& init;
-//     F&& f;
-// };
+template<typename I, typename F>
+class fold_t {
+public:
+    I&& init;
+    F&& f;
+};
 
-// template<typename I, typename F>
-// constexpr
-// auto fold(I&& init, F&& f)
-// -> fold_t<I, F> {
-//     return fold_t{
-//         std::forward<I>(init),
-//         std::forward<F>(f)
-//     };
-// }
+template<typename I, typename F>
+constexpr
+auto fold(I&& init, F&& f)
+-> fold_t<I, F> {
+    return fold_t{
+        std::forward<I>(init),
+        std::forward<F>(f)
+    };
+}
 
-// template<std::ranges::input_range R,
-//          typename F,
-//          std::movable I>
-// constexpr
-// decltype(auto) operator|(R&& r, fold_t<I, F> _fold) {
-//     return fold(std::ranges::begin(r),
-//                 std::ranges::end(r),
-//                 _fold.init,
-//                 _fold.f);
-// }
+template<std::ranges::input_range R,
+         typename F,
+         std::movable I>
+constexpr
+decltype(auto) operator|(R&& r, fold_t<I, F> _fold) {
+    return fold(std::ranges::begin(r),
+                std::ranges::end(r),
+                _fold.init,
+                _fold.f);
+}
 
 template<std::ranges::input_range R,
          typename Ret = std::ranges::range_value_t<R>>

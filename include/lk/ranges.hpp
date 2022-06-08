@@ -36,11 +36,9 @@ requires std::ranges::sized_range<R>
 [[nodiscard]] constexpr
 auto adjacent(R&& r)
 -> decltype(auto) {
-    if ( std::ranges::size(r) < N ) {
-        return std::views::empty<std::ranges::range_value_t<R>>;
-    }
+    const std::size_t size = std::ranges::size(r);
 
-    return std::views::iota((std::size_t)N, std::ranges::size(r))
+    return std::views::iota(N, size < N ? N : size)
          | std::views::transform(
            [r = std::views::all(std::forward<R>(r))]
            (std::size_t i) mutable {

@@ -28,6 +28,7 @@ So far, I have implemented:
   - operator|         - Consume a range, returning the accumulator.
 
 - zip_with            - Applies *f* with each range's element at the current index, returning a new range.
+- adjacent            - Returns the range adjacent by N elements.
 
 - view helpers
   - odd_iota          - Generates a range of only odd numbers  [1, +∞)

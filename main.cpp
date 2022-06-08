@@ -15,7 +15,7 @@ auto main()
 	constexpr auto w = views::iota(5, 10);
 
 	fmt::print("{}\n{}\n{}\n",
-			   lk::adjacent<1>(w),
-			   lk::adjacent<2>(w),
-			   lk::adjacent<3>(w));
+	           lk::adjacent<3>(w),
+			   lk::adjacent<5>(w),
+			   lk::adjacent<7>(w));
 }
