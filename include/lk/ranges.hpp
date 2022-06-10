@@ -3,8 +3,25 @@
 #include <ranges>
 #include <functional>
 
+#include <lk/utils.hpp>
+
 namespace lk
 {
+template<std::ranges::random_access_range ...R>
+requires (std::ranges::sized_range<R> && ...)
+[[nodiscard]] constexpr
+auto zip(R&& ...rr)
+-> decltype(auto) {
+    auto r = std::views::iota((std::size_t)0, lk::min(std::ranges::size(rr) ...))
+        | std::views::transform(
+          [... rr = std::views::all(rr)] (std::size_t i) mutable {
+              return std::tuple<std::ranges::range_reference_t<R> const& ...>
+                     { std::ranges::begin(std::views::all(rr))[i] ... };
+          });
+
+    return r;
+}
+
 template<std::ranges::random_access_range R1,
          std::ranges::random_access_range R2,
          typename F>
@@ -24,7 +41,7 @@ auto zip_with(R1&& r1, R2&& r2, F&& f)
               r1 = std::views::all(std::forward<R1>(r1)),
               r2 = std::views::all(std::forward<R2>(r2))]
              (std::size_t i) mutable {
-                 return std::invoke(f, r1[i], r2[i]);
+                 return std::invoke(f, std::ranges::begin(r1)[i], std::ranges::begin(r2)[i]);
              });
 
     return r;

@@ -11,11 +11,9 @@ using namespace std::views;
 
 auto main()
 -> int {
-	constexpr auto v = views::iota(1, 1000);
-	constexpr auto w = views::iota(5, 10);
+	auto a = std::vector{1, 2, 3};
+	auto b = std::vector{4, 5, 6};
+	auto c = std::vector{7, 8, 9};
 
-	fmt::print("{}\n{}\n{}\n",
-	           lk::adjacent<3>(w),
-			   lk::adjacent<5>(w),
-			   lk::adjacent<7>(w));
+	fmt::print("{}\n", lk::zip(a, b, c));
 }
