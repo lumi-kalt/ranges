@@ -15,5 +15,7 @@ auto main()
 	auto b = std::vector{4, 5, 6};
 	auto c = std::vector{7, 8, 9};
 
-	fmt::print("{}\n", lk::zip(a, b, c));
+	fmt::print("{}\n", lk::zip_with([](int a, int b, int c)
+									{ return a + b + c; },
+									a, b, c));
 }

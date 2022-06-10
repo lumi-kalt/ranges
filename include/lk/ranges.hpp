@@ -10,41 +10,28 @@ namespace lk
 template<std::ranges::random_access_range ...R>
 requires (std::ranges::sized_range<R> && ...)
 [[nodiscard]] constexpr
-auto zip(R&& ...rr)
+auto zip(R&& ...r)
 -> decltype(auto) {
-    auto r = std::views::iota((std::size_t)0, lk::min(std::ranges::size(rr) ...))
-        | std::views::transform(
-          [... rr = std::views::all(rr)] (std::size_t i) mutable {
-              return std::tuple<std::ranges::range_reference_t<R> const& ...>
-                     { std::ranges::begin(std::views::all(rr))[i] ... };
-          });
-
-    return r;
+    return std::views::iota((std::size_t)0, std::min({std::ranges::size(r) ...}))
+         | std::views::transform(
+           [...r = std::views::all(std::forward<R>(r))] (std::size_t i) mutable {
+               return std::tuple<std::ranges::range_reference_t<R> const& ...>
+                      { std::ranges::begin(r)[i] ... };
+           });
 }
 
-template<std::ranges::random_access_range R1,
-         std::ranges::random_access_range R2,
-         typename F>
-requires std::invocable<F&, std::ranges::range_reference_t<R1>, std::ranges::range_reference_t<R2>>
-      && std::ranges::sized_range<R1>
-      && std::ranges::sized_range<R2>
+template<typename F,
+         std::ranges::random_access_range ...R>
+requires std::invocable<F&, std::ranges::range_reference_t<R> ...>
+      && (std::ranges::sized_range<R> && ...)
 [[nodiscard]] constexpr
-auto zip_with(R1&& r1, R2&& r2, F&& f)
+auto zip_with(F&& f, R&& ...r)
 -> decltype(auto) {
-    std::size_t size =
-        std::min<std::size_t>(std::ranges::size(r1),
-                              std::ranges::size(r2));
-
-    auto r = std::views::iota((std::size_t)0, size)
-           | std::views::transform(
-             [f = std::move(f),
-              r1 = std::views::all(std::forward<R1>(r1)),
-              r2 = std::views::all(std::forward<R2>(r2))]
-             (std::size_t i) mutable {
-                 return std::invoke(f, std::ranges::begin(r1)[i], std::ranges::begin(r2)[i]);
-             });
-
-    return r;
+    return lk::zip(std::forward<R>(r)...)
+         | std::views::transform(
+           [f = std::forward<F>(f)] (std::tuple<std::ranges::range_reference_t<R> ...>&& t) mutable {
+               return std::apply(std::forward<F>(f), std::move(t));
+           });
 }
 
 template<std::size_t N,

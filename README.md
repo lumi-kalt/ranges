@@ -27,7 +27,9 @@ So far, I have implemented:
   - max               - Returns the max item in the range.
   - operator|         - Consume a range, returning the accumulator.
 
-- zip_with            - Applies *f* with each range's element at the current index, returning a new range.
+- zip                 - Creates a range of tuples with each range's element at the current index.
+  - zip_with          - Applies *f* with each range's element at the current index, returning a new range.
+
 - adjacent            - Returns the range adjacent by N elements.
 
 - view helpers
