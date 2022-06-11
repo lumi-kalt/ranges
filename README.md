@@ -14,9 +14,10 @@ cmake -D CMAKE_CXX_COMPILER=g++ .. && make -j
 ```
 
 \
+
 \
 
-So far, I have implemented:
+## Algorithms
 
 - fold                - Applies *f* with an accumulator and the current element, for each element in the range.
   - fold_left         - Folds from the first element to the last.

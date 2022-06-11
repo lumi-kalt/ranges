@@ -16,6 +16,6 @@ auto main()
 	auto c = std::vector{7, 8, 9};
 
 	fmt::print("{}\n", lk::zip_with([](int a, int b, int c)
-									{ return a + b + c; },
+									  { return a + b + c; },
 									a, b, c));
 }

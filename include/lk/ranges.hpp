@@ -42,7 +42,7 @@ auto adjacent(R&& r)
 -> decltype(auto) {
     const std::size_t size = std::ranges::size(r);
 
-    return std::views::iota(N, size < N ? N : size)
+    return std::views::iota(N, std::max(size, N))
          | std::views::transform(
            [r = std::views::all(std::forward<R>(r))]
            (std::size_t i) mutable {
