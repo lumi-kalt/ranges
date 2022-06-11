@@ -4,7 +4,7 @@ Toy implementations of some C++23 algorithms for ranges.
 Currently requires GCC, as Clang's support for views is lacking.
 May also work in MSVC.
 
-To compile, run
+### Compilation
 
 ```bash
 mkdir build
@@ -12,8 +12,6 @@ cd build
 cmake -D CMAKE_CXX_COMPILER=g++ .. && make -j
 ./ranges
 ```
-
-\
 
 ## Algorithms
 
