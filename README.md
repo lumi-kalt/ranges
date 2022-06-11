@@ -15,8 +15,6 @@ cmake -D CMAKE_CXX_COMPILER=g++ .. && make -j
 
 \
 
-\
-
 ## Algorithms
 
 - fold                - Applies *f* with an accumulator and the current element, for each element in the range.
