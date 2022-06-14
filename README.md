@@ -27,6 +27,8 @@ cmake -D CMAKE_CXX_COMPILER=g++ .. && make -j
 - zip                 - Creates a range of tuples with each range's element at the current index.
   - zip_with          - Applies *f* with each range's element at the current index, returning a new range.
 
+- unzip               - Creates a tuple of the ranges of tuples/pairs passed into it
+
 - adjacent            - Returns the range adjacent by N elements.
 
 \
