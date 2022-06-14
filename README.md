@@ -29,10 +29,6 @@ cmake -D CMAKE_CXX_COMPILER=g++ .. && make -j
 
 - adjacent            - Returns the range adjacent by N elements.
 
-- view helpers
-  - odd_iota          - Generates a range of only odd numbers  [1, +∞)
-  - even_iota         - Generates a range of only even numbers [2, +∞)
-
 \
 \
 @ Lumi Kalt, 2022
