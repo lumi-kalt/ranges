@@ -8,6 +8,8 @@
 namespace lk
 {
 
+/* Zip Family */
+
 template<std::ranges::random_access_range R1,
          std::ranges::random_access_range R2>
 requires std::ranges::sized_range<R1> && std::ranges::sized_range<R2>
@@ -45,7 +47,8 @@ auto zip_transform(F&& f, R&& ...r)
 -> decltype(auto) {
     return lk::zip(std::views::all(std::forward<R>(r))...)
          | std::views::transform(
-           [f = std::forward<F>(f)] (std::tuple<std::ranges::range_reference_t<R> ...>&& t) mutable
+           [f = std::forward<F>(f)]
+           (std::tuple<std::ranges::range_reference_t<R> ...>&& t) mutable
            -> decltype(auto) {
                return std::apply(std::forward<F>(f), std::move(t));
            });
@@ -66,7 +69,7 @@ auto unzip(R&& r)
                  | std::views::elements<Is>
                    ...
                };
-           } (lk::tuple_index_sequence<std::ranges::range_reference_t<R>>{});
+           } (lk::tuple_index_sequence<std::ranges::range_value_t<R>>{});
 }
 
 template<std::ranges::input_range R>
@@ -82,7 +85,7 @@ auto unzip(R&& r)
                  | std::views::elements<Is>
                    ...
                };
-           } (std::make_index_sequence<std::tuple_size_v<std::ranges::range_reference_t<R>>>{});
+           } (lk::tuple_index_sequence<std::ranges::range_value_t<R>>{});
 }
 
 
@@ -102,4 +105,35 @@ auto adjacent(R&& r)
                return r[i];
            });
 }
+
+//------------------------------------------------------------------------------
+
+template<std::ranges::input_range R,
+         typename F,
+         std::movable Init = std::ranges::range_value_t<R>>
+requires std::invocable<F&, Init&, std::ranges::range_reference_t<R>>
+[[nodiscard]] constexpr
+auto scan_left(R&& r, Init&& init, F&& f)
+-> decltype(auto) {
+    return r
+         | std::views::transform(
+           [f = std::forward<F>(f),
+            init = std::move<Init>(init)]
+           (auto&& x) mutable
+           -> decltype(auto) {
+               init = f(init, x);
+               return init;
+           });
 }
+
+template<std::ranges::input_range R,
+         typename F>
+requires std::invocable<F&, std::ranges::range_reference_t<R>,
+                            std::ranges::range_reference_t<R>>
+[[nodiscard]] constexpr
+auto scan_left_first(R&& r, F&& f)
+-> decltype(auto) {
+    return scan_left(r, f, *std::ranges::begin(r));
+}
+
+} // namespace lk::ranges

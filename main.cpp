@@ -11,12 +11,9 @@ using namespace std::views;
 
 auto main()
 -> int {
-	std::vector<int> a = {1, 2, 3};
-	std::vector<int> b = {4, 5, 6};
-	std::vector<int> c = {7, 8, 9};
+	std::vector<std::pair<int, int>> v = {{1, 2}, {3, 4}};
+	auto [a, b] = lk::unzip(v);
 
-	auto zipped   = lk::zip(a, b, c);
-	auto unzipped = lk::unzip(zipped);
 
-	fmt::print("{}\n{}, {}\n", zipped, std::get<0>(unzipped), std::get<1>(unzipped));
+	fmt::print("{}, {}\n", a, b);
 }
