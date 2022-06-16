@@ -11,11 +11,12 @@ using namespace std::views;
 
 auto main()
 -> int {
-	auto a = std::vector{1, 2, 3};
-	auto b = std::vector{4, 5, 6};
-	auto c = std::vector{7, 8, 9};
+	std::vector<int> a = {1, 2, 3};
+	std::vector<int> b = {4, 5, 6};
+	std::vector<int> c = {7, 8, 9};
 
-	auto r = lk::unzip(lk::zip(a, b));
+	auto zipped   = lk::zip(a, b, c);
+	auto unzipped = lk::unzip(zipped);
 
-	fmt::print("{}\n{}\n", lk::zip(a, b), a);
+	fmt::print("{}\n{}, {}\n", zipped, std::get<0>(unzipped), std::get<1>(unzipped));
 }

@@ -7,9 +7,9 @@ namespace lk {
 /* FOLDS */
 
 template<std::input_iterator I,
-        std::sentinel_for<I> S,
-        typename F,
-        std::movable Init = std::iter_value_t<I>>
+         std::sentinel_for<I> S,
+         typename F,
+         std::movable Init = std::iter_value_t<I>>
 requires std::invocable<F&, Init, std::iter_reference_t<I>>
 [[nodiscard]] constexpr
 auto fold(I first, S last, Init init, F f)

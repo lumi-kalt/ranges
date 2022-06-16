@@ -5,18 +5,8 @@
 
 namespace lk {
 
+// Returns an index sequence of the tuple's size.
 template<typename T>
-[[nodiscard]] constexpr
-auto min(T&& t)
--> T {
-    return std::forward<T>(t);
-}
-
-template<typename T, typename ...Args>
-[[nodiscard]] constexpr
-auto min(T&& t, Args&& ...args)
--> T {
-    return std::min(std::forward<T>(t), min(std::forward<Args>(args)...));
-}
+using tuple_index_sequence = std::make_index_sequence<std::tuple_size_v<T>>;
 
 }
