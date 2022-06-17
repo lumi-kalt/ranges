@@ -110,7 +110,7 @@ auto adjacent(R&& r)
 
 template<std::ranges::input_range R,
          typename F,
-         std::movable Init = std::ranges::range_value_t<R>>
+         typename Init = std::ranges::range_value_t<R>>
 requires std::invocable<F&, Init&, std::ranges::range_reference_t<R>>
 [[nodiscard]] constexpr
 auto scan_left(R&& r, Init&& init, F&& f)
@@ -118,7 +118,7 @@ auto scan_left(R&& r, Init&& init, F&& f)
     return r
          | std::views::transform(
            [f = std::forward<F>(f),
-            init = std::move<Init>(init)]
+            init = std::forward<Init>(init)]
            (auto&& x) mutable
            -> decltype(auto) {
                init = f(init, x);
@@ -127,13 +127,23 @@ auto scan_left(R&& r, Init&& init, F&& f)
 }
 
 template<std::ranges::input_range R,
-         typename F>
-requires std::invocable<F&, std::ranges::range_reference_t<R>,
-                            std::ranges::range_reference_t<R>>
+         typename F,
+         std::movable Init = std::ranges::range_value_t<R>>
+requires std::invocable<F&, Init&, std::ranges::range_reference_t<R>>
 [[nodiscard]] constexpr
-auto scan_left_first(R&& r, F&& f)
+auto scan_right(R&& r, Init&& init, F&& f)
 -> decltype(auto) {
-    return scan_left(r, f, *std::ranges::begin(r));
+    return r
+         | std::views::reverse
+         | std::views::transform(
+           [f = std::forward<F>(f),
+            init = std::move<Init>(init)]
+           (auto&& x) mutable
+           -> decltype(auto) {
+               init = f(x, init);
+               return init;
+           })
+         | std::views::reverse;
 }
 
 } // namespace lk::ranges
