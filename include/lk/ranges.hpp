@@ -28,7 +28,7 @@ requires (std::ranges::sized_range<R> && ...)
 [[nodiscard]] constexpr
 auto zip(R&& ...r)
 -> decltype(auto) {
-    return std::views::iota(0uz, std::min({std::ranges::size(r) ...}))
+    return std::views::iota(std::size_t(0), std::min({std::ranges::size(r) ...}))
          | std::views::transform(
            [...r = std::views::all(std::forward<R>(r))] (std::size_t i) mutable
            -> decltype(auto) {
@@ -118,10 +118,10 @@ auto scan_left(R&& r, Init&& init, F&& f)
     return r
          | std::views::transform(
            [f = std::forward<F>(f),
-            init = std::forward<Init>(init)]
+            init = std::move<Init>(init)]
            (auto&& x) mutable
            -> decltype(auto) {
-               init = f(init, x);
+               init = f(x, init);
                return init;
            });
 }

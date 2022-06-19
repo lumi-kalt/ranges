@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.20) # For C++23 (2b) support
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED On)
 add_compile_options(-Wall -Wextra -pedantic -O3)
+add_link_options("-fuse-ld=mold")
 
 project(ranges VERSION 0.1.0)
 
