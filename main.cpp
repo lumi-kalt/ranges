@@ -13,8 +13,7 @@ using namespace std::views;
 
 auto main()
 -> int {
-	int a;
-	std::string b;
+	const auto v = {1, 2, 3};
 
-	fmt::print("{}\n{}\n", a, b);
+	fmt::print("any_in({{1, 2, 3}}, 1, 2) = {}\n", lk::any_in(v, 1, 2));
 }
