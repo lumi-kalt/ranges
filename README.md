@@ -6,20 +6,22 @@ May also work in MSVC.
 
 ## Algorithms
 
+### Folds
+
 - fold                - Applies *f* with an accumulator and the current element, for each element in the range.
-  - fold_left         - Folds from the first element to the last.
-  - fold_right        - Folds from the last element to the first.
-  - product           - Multiply all items in the range (requires *operator\**).
-  - sum               - Sum up all items in the range (requires *operator+*).
-  - min               - Returns the min item in the range.
-  - max               - Returns the max item in the range.
-  - operator|         - Consume a range, returning the accumulator.
+- fold_left         - Folds from the first element to the last.
+- fold_right        - Folds from the last element to the first.
+- product           - Multiply all items in the range (requires *operator\**).
+- sum               - Sum up all items in the range (requires *operator+*).
+- min               - Returns the min item in the range.
+- max               - Returns the max item in the range.
+- operator|         - Consume a range, returning the accumulator.
+
+### Zips
 
 - zip                 - Creates a range of tuples with each range's element at the current index.
-  - zip_with          - Applies *f* with each range's element at the current index, returning a new range.
-
+- zip_with          - Applies *f* with each range's element at the current index, returning a new range.
 - unzip               - Creates a tuple of the ranges of tuples/pairs passed into it
-
 - adjacent            - Returns the range adjacent by N elements.
 
 ### Utilities
@@ -30,4 +32,6 @@ May also work in MSVC.
 
 \
 \
+
+---
 @ Lumi Kalt, 2022
