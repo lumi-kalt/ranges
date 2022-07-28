@@ -31,7 +31,6 @@ May also work in MSVC.
 - all_in              - Returns true if all lof the arguments are in the range
 
 \
-\
 
 ---
 @ Lumi Kalt, 2022
