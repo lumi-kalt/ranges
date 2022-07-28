@@ -1,7 +1,7 @@
 # Range Algorithms
 
-Toy implementations of some C++23 (and beyound :rocket:) algorithms for ranges.
-Currently requires GCC, as Clang's support for views is lacking. [Does it work yet?]
+Toy implementations of some C++23 (and beyound :rocket:) algorithms for ranges. \
+Currently requires GCC, as Clang's support for views is lacking. [Does it work yet?] \
 May also work in MSVC.
 
 ## Algorithms
