@@ -5,13 +5,13 @@
 #include <string>
 #include <vector>
 
-#include "lk/lk.hpp"
 #include <fmt/ranges.h>
+#include "lk/lk.hpp"
 
-using namespace std::ranges;
-using namespace std::views;
+namespace stdr = std::ranges;
+namespace stdv = std::views;
 
-auto main()
+fn main()
 -> int {
 	const auto v = {1, 2, 3};
 

@@ -1,17 +1,8 @@
 # Range Algorithms
 
-Toy implementations of some C++23 algorithms for ranges.
-Currently requires GCC, as Clang's support for views is lacking.
+Toy implementations of some C++23 (and beyound :rocket:) algorithms for ranges.
+Currently requires GCC, as Clang's support for views is lacking. [Does it work yet?]
 May also work in MSVC.
-
-Compilation:
-
-```bash
-mkdir build
-cd build
-cmake -D CMAKE_CXX_COMPILER=g++ .. && make -j
-./ranges
-```
 
 ## Algorithms
 
@@ -30,6 +21,12 @@ cmake -D CMAKE_CXX_COMPILER=g++ .. && make -j
 - unzip               - Creates a tuple of the ranges of tuples/pairs passed into it
 
 - adjacent            - Returns the range adjacent by N elements.
+
+## Utilities
+
+- any_in              - Returns true if any of the arguments in in the range
+- only_in             - Returns true if the arguments are the only elements in the range
+- all_in              - Returns true if all lof the arguments are in the range
 
 \
 \
