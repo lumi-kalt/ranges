@@ -22,11 +22,10 @@ May also work in MSVC.
 
 - adjacent            - Returns the range adjacent by N elements.
 
-## Utilities
-
-- any_in              - Returns true if any of the arguments in in the range
-- only_in             - Returns true if the arguments are the only elements in the range
-- all_in              - Returns true if all lof the arguments are in the range
+- Utilities
+  - any_in              - Returns true if any of the arguments in in the range
+  - only_in             - Returns true if the arguments are the only elements in the range
+  - all_in              - Returns true if all lof the arguments are in the range
 
 \
 \
