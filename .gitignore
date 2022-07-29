@@ -30,5 +30,5 @@
 # CMake build directory
 build/
 
-# VIsual Studio Code
+# Visual Studio Code
 .*/
