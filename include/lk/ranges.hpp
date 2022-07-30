@@ -106,44 +106,4 @@ auto adjacent(R&& r)
            });
 }
 
-//------------------------------------------------------------------------------
-
-template<std::ranges::input_range R,
-         typename F,
-         typename Init = std::ranges::range_value_t<R>>
-requires std::invocable<F&, Init&, std::ranges::range_reference_t<R>>
-[[nodiscard]] constexpr
-auto scan_left(R&& r, Init&& init, F&& f)
--> decltype(auto) {
-    return r
-         | std::views::transform(
-           [f = std::forward<F>(f),
-            init = std::move<Init>(init)]
-           (auto&& x) mutable
-           -> decltype(auto) {
-               init = f(x, init);
-               return init;
-           });
-}
-
-template<std::ranges::input_range R,
-         typename F,
-         std::movable Init = std::ranges::range_value_t<R>>
-requires std::invocable<F&, Init&, std::ranges::range_reference_t<R>>
-[[nodiscard]] constexpr
-auto scan_right(R&& r, Init&& init, F&& f)
--> decltype(auto) {
-    return r
-         | std::views::reverse
-         | std::views::transform(
-           [f = std::forward<F>(f),
-            init = std::move<Init>(init)]
-           (auto&& x) mutable
-           -> decltype(auto) {
-               init = f(x, init);
-               return init;
-           })
-         | std::views::reverse;
-}
-
 } // namespace lk::ranges

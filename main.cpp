@@ -13,7 +13,8 @@ namespace stdv = std::views;
 
 fn main()
 -> int {
-	const auto v = {1, 2, 3};
+	std::vector<int> v {1, 2, 3, 4, 5};
+	std::vector<int> w;
 
-	fmt::print("any_in({{1, 2, 3}}, 1, 2) = {}\n", lk::any_in(v, 1, 2));
+	fmt::print("{}\n", lk::scan_left(v, 0, std::plus{}));
 }
