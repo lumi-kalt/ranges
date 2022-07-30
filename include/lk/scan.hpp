@@ -19,12 +19,13 @@ auto scan(I first, S last, O out, Init init, F f)
         *out++ = init;
         ++first;
 	}
+
+    return o++;
 }
 
 template<std::ranges::input_range R,
          typename F,
-         typename Init = std::ranges::range_reference_t<R>,
-         typename O = std::remove_reference_t<R>>
+         typename Init = std::ranges::range_reference_t<R>>
 [[nodiscard]] constexpr
 auto scan_left(R&& r, Init init, F&& f) {
     scan(std::ranges::begin(r),
